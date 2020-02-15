@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { render } from '@testing-library/react';
 
-function App() {
+class App extends React.Component {
+
+state = {
+  workOuts: [ 'pushups', 'abs', 'squats', 'jumprope intervals', 'jumping lunges', 'burpees', 'lunges', 'body rows', 'sprint intervals', 'pullups', 'plyometric pushups'  ],
+  workoutResults: '',
+}
+
+chooseWorkout = () => {
+
+  let randomWorkout = this.state.workOuts[Math.floor(Math.random()*this.state.workOuts.length)]
+
+  this.setState({
+    workoutResults: randomWorkout
+  })
+  
+}
+  
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div>
+      <header>
+
+      <button onClick={this.chooseWorkout}>Random Workout</button>
+
+      <p style={{padding: '10px', backgroundColor: 'blue', width: '200px', height: '200px', textAlign: 'center'}}>
+      {this.state.workoutResults}
+      </p>
+        
       </header>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
