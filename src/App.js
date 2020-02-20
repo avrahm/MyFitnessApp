@@ -37,7 +37,7 @@ class App extends React.Component {
         })
       }
       if (match !== this.state.numOfWorkouts) {
-       return this.randomizeWorkouts(this.state.numOfWorkouts);
+        return this.randomizeWorkouts(this.state.numOfWorkouts);
       }
     }
   }
