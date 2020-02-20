@@ -6,29 +6,63 @@ class App extends React.Component {
   state = {
     allWorkouts: ['pushups', 'abs', 'squats', 'jumprope intervals', 'jumping lunges', 'burpees', 'lunges', 'body rows', 'sprint intervals', 'pullups', 'plyometric pushups'],
     workoutResults: '',
+    numOfWorkouts: 5
   }
 
-  randomizeWorkouts = ({ numOfWorkouts = 3 }) => {
+
+  randomizeWorkouts = () => {
     let listOfWorkouts = [];
 
-    for (let i = 0; i < numOfWorkouts; i++) {
+    for (let i = 0; i < this.state.numOfWorkouts; i++) {
       listOfWorkouts[i] = this.state.allWorkouts[Math.floor(Math.random() * this.state.allWorkouts.length)];
     }
 
     this.setState({
       workoutResults: listOfWorkouts,
-    })
-
+    },
+      //https://stackoverflow.com/questions/45622879/react-slow-setstate-at-console-log 
+      () => {
+        this.checkForRepeatWorkout(listOfWorkouts)
+      })
   }
 
-  //check list of workouts doesnt have repeats
-  checkListForRepeatWorkout = (list, nextWorkout) => {
-    let value;
-    nextWorkout.forEach((workout) => {
-   
-      value = value + list.includes(workout)
-   
-    })
+  // //check list of workouts doesnt have repeats
+  checkForRepeatWorkout = (listOfWorkouts) => {
+    let match = 0;
+    if (listOfWorkouts) {
+
+      // console.log(listOfWorkouts)
+
+      for (let i = 0; i < listOfWorkouts.length; i++) {
+
+        // console.log('i '+ listOfWorkouts[i])
+        listOfWorkouts.find(workout => {
+          // console.log('workouts ' + workout)
+
+          if (workout === listOfWorkouts[i]) {
+            // console.log('match')
+            match++;
+          }
+        })
+        
+      }
+      console.log(match)
+      if (match != this.state.numOfWorkouts) {
+        this.randomizeWorkouts(this.state.numOfWorkouts);
+        // console.log(5)
+        console.log('---')
+      }
+
+      // console.log('list i ' + listOfWorkouts[i])
+
+      // if (listOfWorkouts[i] === workouts) {
+      //   console.log('match ' + workouts)
+      //   // randomWorkout3 = this.state.workOuts[Math.floor(Math.random() * this.state.workOuts.length)];
+      // }
+
+      // })
+
+    }
 
   }
 
